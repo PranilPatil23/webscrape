@@ -6,16 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Web Scraper Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <style>
         :root {
-            --primary: #4F46E5;
-            --primary-hover: #4338CA;
+            --primary: #6366F1;
+            --primary-hover: #4F46E5;
             --secondary: #10B981;
-            --bg-gradient: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
-            --text-dark: #1F2937;
-            --text-muted: #6B7280;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --dark: #111827;
+            --muted: #6B7280;
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.3);
         }
+
+        /* ---------- GLOBAL ---------- */
 
         * {
             margin: 0;
@@ -25,134 +29,214 @@
         }
 
         body {
-            background: var(--bg-gradient);
-            color: var(--text-dark);
             min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--dark);
+            background:
+                radial-gradient(circle at top left, #6366F1 0%, transparent 30%),
+                radial-gradient(circle at bottom right, #10B981 0%, transparent 30%),
+                linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+            background-attachment: fixed;
+            animation: bgMove 12s ease infinite alternate;
+
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
         }
 
+        @keyframes bgMove {
+            0% {
+                background-position: left top, right bottom;
+            }
+
+            100% {
+                background-position: right top, left bottom;
+            }
+        }
+
+        /* ---------- HEADER ---------- */
+
         .header {
             text-align: center;
             margin-bottom: 40px;
+            animation: fadeInDown 1s;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            letter-spacing: -0.05em;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
             margin-bottom: 10px;
         }
 
         .header h1 span {
-            color: var(--primary);
+            background: linear-gradient(90deg, #6366F1, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header p {
-            color: var(--text-muted);
+            color: var(--muted);
             font-size: 1.1rem;
         }
 
+        /* ---------- SEARCH BOX ---------- */
+
         .search-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+
             background: var(--card-bg);
+            backdrop-filter: blur(18px);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 24px;
+
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            margin-bottom: 30px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.08),
+                inset 0 1px 1px rgba(255, 255, 255, 0.5);
+
+            animation: fadeInUp 1s;
         }
+
+        /* ---------- INPUT ---------- */
 
         .input-wrapper {
             display: flex;
             gap: 15px;
-            position: relative;
+            align-items: center;
         }
 
         input {
             flex: 1;
-            padding: 16px 20px;
-            font-size: 1.1rem;
-            border: 2px solid #E5E7EB;
-            border-radius: 12px;
+            padding: 18px 22px;
+
+            border: none;
             outline: none;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+
+            border-radius: 16px;
+
+            background: white;
+
+            font-size: 1rem;
+
+            transition: 0.3s ease;
+
+            box-shadow:
+                inset 0 2px 4px rgba(0, 0, 0, 0.03);
         }
 
         input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 0 5px rgba(99, 102, 241, 0.15),
+                0 10px 25px rgba(99, 102, 241, 0.15);
         }
 
-        .scrape-btn {
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            padding: 0 30px;
+        /* ---------- SELECT ---------- */
+
+        select {
+            padding: 15px 18px;
+
+            border-radius: 14px;
+
             border: none;
-            border-radius: 12px;
+
+            background: white;
+
+            font-weight: 600;
+
             cursor: pointer;
-            transition: all 0.2s ease;
+
+            transition: 0.3s;
+        }
+
+        select:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ---------- BUTTON ---------- */
+
+        .scrape-btn {
+            border: none;
+
+            padding: 16px 28px;
+
+            border-radius: 16px;
+
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+
+            color: white;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
             display: flex;
             align-items: center;
             gap: 8px;
+
+            transition: all 0.3s ease;
+
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25);
         }
 
         .scrape-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transform: translateY(-4px) scale(1.03);
+
+            box-shadow:
+                0 15px 30px rgba(99, 102, 241, 0.35);
         }
 
         .scrape-btn:active {
-            transform: translateY(0);
+            transform: scale(0.98);
         }
 
-        /* Loading Animation */
+        /* ---------- LOADER ---------- */
+
         .loader-container {
             display: none;
-            text-align: center;
             margin: 40px 0;
+            text-align: center;
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(79, 70, 229, 0.2);
-            border-left-color: var(--primary);
+            width: 55px;
+            height: 55px;
+
+            border: 5px solid rgba(99, 102, 241, 0.15);
+            border-top-color: #6366F1;
+
             border-radius: 50%;
+
+            margin: auto;
+
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
+            to {
                 transform: rotate(360deg);
             }
         }
 
         .loader-text {
-            color: var(--text-muted);
-            font-weight: 500;
-            animation: pulse 1.5s ease-in-out infinite;
+            margin-top: 18px;
+            font-weight: 600;
+            color: var(--muted);
+            animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
 
             0%,
             100% {
-                opacity: 0.6;
+                opacity: 0.4;
             }
 
             50% {
@@ -160,138 +244,132 @@
             }
         }
 
-        .error-message {
-            display: none;
-            background: #FEE2E2;
-            color: #B91C1C;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-weight: 500;
-            border-left: 4px solid #EF4444;
-        }
+        /* ---------- RESULTS ---------- */
 
-        /* Results Area */
         #results-section {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+
+            margin-top: 30px;
+
             display: none;
-            animation: slideUp 0.5s ease-out forwards;
+
+            animation: fadeInUp 0.8s;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+        /* ---------- SUMMARY ---------- */
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .controls-bar {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        select {
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #D1D5DB;
-            font-weight: 500;
-            color: var(--text-dark);
-            outline: none;
-            cursor: pointer;
-            background: white;
-        }
-
-        .download-btn {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .download-btn:hover {
-            background: #059669;
-        }
-
-        /* AI Summary Card */
         .summary-card {
-            background: linear-gradient(to right, #ffffff, #f8fafc);
-            padding: 30px;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.75);
+
+            backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, 0.4);
+
+            border-radius: 24px;
+
+            padding: 35px;
+
             margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E2E8F0;
-            border-top: 5px solid var(--primary);
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.08);
         }
 
         .summary-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--primary);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+
+            margin-bottom: 18px;
+
+            color: #4F46E5;
         }
 
         .summary-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #334155;
+            font-size: 1.08rem;
+            line-height: 1.9;
+            color: #374151;
         }
+
+        /* ---------- SECTION ---------- */
 
         .section-title {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #E5E7EB;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #6B7280;
+
+            margin-bottom: 20px;
         }
 
-        /* Result Items */
+        /* ---------- RESULT CARDS ---------- */
+
         .result-item {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-            border: 1px solid #F3F4F6;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: rgba(255, 255, 255, 0.82);
+
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            margin-bottom: 18px;
+
+            cursor: pointer;
+
+            transition: all 0.35s ease;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .result-item::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(120deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.4),
+                    transparent);
+
+            transform: translateX(-100%);
+            transition: 0.8s;
+        }
+
+        .result-item:hover::before {
+            transform: translateX(100%);
         }
 
         .result-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
+        /* ---------- RESULT TITLE ---------- */
+
         .result-title {
-            font-weight: 600;
-            font-size: 1.15rem;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+
+            color: #111827;
         }
 
         .result-link {
-            color: var(--primary);
+            color: #4F46E5;
             text-decoration: none;
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 12px;
-            word-break: break-all;
+            font-size: 0.95rem;
+            font-weight: 600;
         }
 
         .result-link:hover {
@@ -299,25 +377,118 @@
         }
 
         .result-preview {
+            margin-top: 10px;
             color: #4B5563;
-            line-height: 1.6;
-            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        @media (max-width: 600px) {
+        /* ---------- BUTTONS ---------- */
+
+        .download-btn {
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 14px;
+
+            background: linear-gradient(135deg, #10B981, #059669);
+
+            color: white;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ---------- CONTROLS ---------- */
+
+        .controls-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* ---------- ERROR ---------- */
+
+        .error-message {
+            display: none;
+
+            margin-top: 18px;
+
+            background: #FEE2E2;
+
+            color: #B91C1C;
+
+            padding: 15px 18px;
+
+            border-radius: 14px;
+
+            font-weight: 600;
+        }
+
+        /* ---------- BACK BUTTON ---------- */
+
+        .back-btn {
+            margin-top: 20px;
+
+            background: #111827;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+
+            background: #1F2937;
+        }
+
+        /* ---------- MOBILE ---------- */
+
+        @media(max-width:768px) {
+
             .input-wrapper {
                 flex-direction: column;
             }
 
             .scrape-btn {
-                padding: 16px;
+                width: 100%;
                 justify-content: center;
             }
 
             .controls-bar {
                 flex-direction: column;
-                align-items: stretch;
             }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .summary-card {
+                padding: 24px;
+            }
+
         }
     </style>
 </head>
@@ -378,8 +549,12 @@
     </div>
 
     <script>
+        let currentType = "normal";
         let currentData = [];
         let currentSummary = "";
+        let categoryName = "";
+        let categoryDescription = "";
+        let officialUrl = "";
 
         function handleKeyPress(e) {
             if (e.key === 'Enter') scrape();
@@ -423,7 +598,9 @@
                 currentData = data.results || [];
                 currentSummary = data.summary || "";
 
-                displayResults();
+                // 🔥 IMPORTANT
+                displayResults(data.type || "normal");
+
 
             } catch (err) {
                 loader.style.display = "none";
@@ -432,42 +609,1529 @@
             }
         }
 
-        function displayResults() {
+        function displayResults(type = "normal") {
+
             const resultsSection = document.getElementById("results-section");
             const summaryContent = document.getElementById("summary-content");
             const dataList = document.getElementById("data-list");
 
-            // 🔥 Summary fix
-            summaryContent.textContent = currentSummary || "No summary available.";
+            // ---------- CATEGORY VIEW ----------
+            if (type === "category") {
 
-            if (!currentData.length) {
-                dataList.innerHTML = `
-                <div class="result-item">
-                    ❌ No readable sources found. Try another query.
-                </div>
-            `;
+                // 🔥 categories ONLY in AI summary
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryCards('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#EEF2FF;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                "
+                onmouseover="this.style.background='#DDE5FF'"
+                onmouseout="this.style.background='#EEF2FF'"
+            >
+                 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <b>Select HDFC Card Category:</b><br><br>
+            ${categorySummary}
+        `;
+
+                // 🔥 only related links below
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+
                 resultsSection.style.display = "block";
                 return;
             }
 
-            // 🔥 Proper mapping
-            const html = currentData.map(item => {
-                const title = item.title || item.tag || "No Title";
-                const content = item.content || item.text || "";
-                const link = item.link || "";
+            // ---------- ACCOUNT CATEGORY VIEW ----------
+            if (type === "account_category") {
 
-                return `
-                <div class="result-item">
-                    <div class="result-title">📄 ${title}</div>
-                    ${link ? `<a href="${link}" target="_blank" class="result-link">${link}</a>` : ""}
-                    <div class="result-preview">
-                        ${content.length > 300 ? content.substring(0, 300) + '...' : content}
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryAccounts('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#EEF2FF;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                "
+                onmouseover="this.style.background='#DDE5FF'"
+                onmouseout="this.style.background='#EEF2FF'"
+            >
+                📂 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #4F46E5; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC Accounts Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #f8fafc; border-left: 4px solid #6366f1; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                📂 Select HDFC Account Category:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- DEPOSIT CATEGORY VIEW ----------
+            if (type === "deposit_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryDeposits('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#ECFDF5;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #10B981;
+                "
+                onmouseover="this.style.background='#D1FAE5'"
+                onmouseout="this.style.background='#ECFDF5'"
+            >
+                🏦 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #059669; display: flex; align-items: center; gap: 8px;">
+                🏦 HDFC Deposits Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #f0fdf4; border-left: 4px solid #10B981; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🏦 Select HDFC Deposit Category:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- LOAN CATEGORY VIEW ----------
+            if (type === "loan_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryLoans('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#FFF7ED;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #F97316;
+                "
+                onmouseover="this.style.background='#FFEDD5'"
+                onmouseout="this.style.background='#FFF7ED'"
+            >
+                💸 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #EA580C; display: flex; align-items: center; gap: 8px;">
+                💸 HDFC Loans Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #fff7ed; border-left: 4px solid #F97316; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                💸 Select HDFC Loan Category:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- INSURANCE CATEGORY VIEW ----------
+            if (type === "insurance_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryInsurance('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#EEF2FF;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #6366F1;
+                "
+                onmouseover="this.style.background='#DDE5FF'"
+                onmouseout="this.style.background='#EEF2FF'"
+            >
+                🛡️ ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #4F46E5; display: flex; align-items: center; gap: 8px;">
+                🛡️ HDFC Insurance Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #EEF2FF; border-left: 4px solid #6366F1; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🛡️ Select HDFC Insurance Category:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- INVESTMENT CATEGORY VIEW ----------
+            if (type === "investment_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryInvestment('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#ECFDF5;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #10B981;
+                "
+                onmouseover="this.style.background='#D1FAE5'"
+                onmouseout="this.style.background='#ECFDF5'"
+            >
+                📈 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #059669; display: flex; align-items: center; gap: 8px;">
+                📈 HDFC Investment Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #ECFDF5; border-left: 4px solid #10B981; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                📈 Select HDFC Investment Category:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- CALCULATOR CATEGORY VIEW ----------
+            if (type === "calculator_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryCalculator('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#F0FDFA;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #14B8A6;
+                "
+                onmouseover="this.style.background='#CCFBF1'"
+                onmouseout="this.style.background='#F0FDFA'"
+            >
+                🧮 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #0D9488; display: flex; align-items: center; gap: 8px;">
+                🧮 HDFC Calculators Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #F0FDFA; border-left: 4px solid #14B8A6; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🧮 Select HDFC Calculator:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- DIGITAL BANKING CATEGORY VIEW ----------
+            if (type === "digital_banking_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryDigitalBanking('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#FDF4FF;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #D946EF;
+                "
+                onmouseover="this.style.background='#FAE8FF'"
+                onmouseout="this.style.background='#FDF4FF'"
+            >
+                📱 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #A21CAF; display: flex; align-items: center; gap: 8px;">
+                📱 HDFC Digital Banking Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #FDF4FF; border-left: 4px solid #D946EF; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                📱 Select HDFC Digital Channel:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- PAYMENTS CATEGORY VIEW ----------
+            if (type === "payments_category") {
+
+                const categorySummary = currentData.map(item => `
+            <div 
+                onclick="loadCategoryPayments('${item.link}')"
+                style="
+                    padding:14px;
+                    margin-bottom:12px;
+                    background:#FFFBEB;
+                    border-radius:12px;
+                    cursor:pointer;
+                    font-weight:600;
+                    transition:0.2s;
+                    border-left: 4px solid #F59E0B;
+                "
+                onmouseover="this.style.background='#FEF3C7'"
+                onmouseout="this.style.background='#FFFBEB'"
+            >
+                💸 ${item.title}
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #D97706; display: flex; align-items: center; gap: 8px;">
+                💸 HDFC Payments Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #FFFBEB; border-left: 4px solid #F59E0B; padding: 15px 20px; border-radius: 0 12px 12px 0;">
+                ${currentSummary}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                💸 Select HDFC Payment Method:
+            </div>
+            ${categorySummary}
+        `;
+
+                const linksHTML = currentData.map(item => `
+            <div class="result-item">
+                <a class="result-link" href="${item.link}" target="_blank">
+                    🔗 ${item.link}
+                </a>
+            </div>
+        `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- DEPOSITS VIEW ----------
+            if (type === "deposits") {
+
+                const depositsSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(16, 185, 129, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        🏦 ${item.title}
                     </div>
+                    <button 
+                        onclick="toggleDepositDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-dep-${index}"
+                        style="
+                            background: linear-gradient(135deg, #10B981, #059669);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
                 </div>
-            `;
-            }).join("");
+                
+                <div 
+                    id="details-container-dep-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-dep-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-dep-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #059669; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #f0fdf4; border-left: 4px solid #10B981; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🏦 Available ${categoryName} Subtypes:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${depositsSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #10B981, #059669);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const linksHTML = [officialUrl].map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- LOANS VIEW ----------
+            if (type === "loans") {
+
+                const loansSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(249, 115, 22, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        💸 ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleLoanDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-loan-${index}"
+                        style="
+                            background: linear-gradient(135deg, #F97316, #EA580C);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <div 
+                    id="details-container-loan-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-loan-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-loan-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #EA580C; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #fff7ed; border-left: 4px solid #F97316; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                💸 Available ${categoryName} Subtypes:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${loansSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #F97316, #EA580C);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const linksHTML = [officialUrl].map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- CARDS VIEW ----------
+            if (type === "cards") {
+
+                // 🔥 Render premium structured cards with details expanding inline below the name
+                const cardsSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(226, 232, 240, 0.8);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        💳 ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleCardDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-${index}"
+                        style="
+                            background: linear-gradient(135deg, #6366F1, #4F46E5);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.15);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <!-- Inline Info Panel (Hidden initially) -->
+                <div 
+                    id="details-container-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <!-- Inline Loader -->
+                    <div id="loader-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div id="content-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #4F46E5; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #f8fafc; border-left: 4px solid #6366f1; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                💳 Available ${categoryName} Subtypes:
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${cardsSummary}
+            </div>
+
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #10B981, #059669);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                // 🔥 related websites below
+                const uniqueLinks = [officialUrl];
+
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- ACCOUNTS VIEW ----------
+            if (type === "accounts") {
+
+                const accountsSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(226, 232, 240, 0.8);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        🏦 ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleAccountDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-acc-${index}"
+                        style="
+                            background: linear-gradient(135deg, #6366F1, #4F46E5);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.15);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <!-- Inline Info Panel (Hidden initially) -->
+                <div 
+                    id="details-container-acc-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <!-- Inline Loader -->
+                    <div id="loader-acc-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div id="content-acc-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #4F46E5; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #f8fafc; border-left: 4px solid #6366f1; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🏦 Available ${categoryName} Subtypes:
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${accountsSummary}
+            </div>
+
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #10B981, #059669);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const uniqueLinks = [officialUrl];
+
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- INSURANCE VIEW ----------
+            if (type === "insurance") {
+
+                const insuranceSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(99, 102, 241, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        🛡️ ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleInsuranceDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-ins-${index}"
+                        style="
+                            background: linear-gradient(135deg, #6366F1, #4F46E5);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.15);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <div 
+                    id="details-container-ins-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-ins-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-ins-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #4F46E5; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #EEF2FF; border-left: 4px solid #6366F1; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🛡️ Available ${categoryName} Subtypes:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${insuranceSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #6366F1, #4F46E5);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const uniqueLinks = [officialUrl];
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- INVESTMENT VIEW ----------
+            if (type === "investment") {
+
+                const investmentSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(16, 185, 129, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        📈 ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleInvestmentDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-inv-${index}"
+                        style="
+                            background: linear-gradient(135deg, #10B981, #059669);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <div 
+                    id="details-container-inv-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-inv-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-inv-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #059669; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #ECFDF5; border-left: 4px solid #10B981; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                📈 Available ${categoryName} Options:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${investmentSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #10B981, #059669);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const uniqueLinks = [officialUrl];
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- CALCULATOR VIEW ----------
+            if (type === "calculator") {
+
+                const calculatorSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(20, 184, 166, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        🧮 ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleCalculatorDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-calc-${index}"
+                        style="
+                            background: linear-gradient(135deg, #14B8A6, #0D9488);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(20, 184, 166, 0.2);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <div 
+                    id="details-container-calc-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-calc-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-calc-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #0D9488; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #F0FDFA; border-left: 4px solid #14B8A6; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                🧮 Available ${categoryName} Types:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${calculatorSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #14B8A6, #0D9488);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(20, 184, 166, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const uniqueLinks = [officialUrl];
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- DIGITAL BANKING VIEW ----------
+            if (type === "digital_banking") {
+
+                const bankingSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(217, 70, 239, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        📱 ${item.title}
+                    </div>
+                    <button 
+                        onclick="toggleDigitalBankingDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-bank-${index}"
+                        style="
+                            background: linear-gradient(135deg, #D946EF, #A21CAF);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(217, 70, 239, 0.2);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <div 
+                    id="details-container-bank-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-bank-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-bank-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #A21CAF; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #FDF4FF; border-left: 4px solid #D946EF; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                📱 Available ${categoryName} Integrations:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${bankingSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #D946EF, #A21CAF);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(217, 70, 239, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const uniqueLinks = [officialUrl];
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- PAYMENTS VIEW ----------
+            if (type === "payments") {
+
+                const paymentsSummary = currentData.map((item, index) => `
+            <div class="card-item-container" style="
+                background: white;
+                border-radius: 16px;
+                border: 1px solid rgba(245, 158, 11, 0.2);
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                margin-bottom: 16px;
+                padding: 18px;
+                transition: all 0.3s ease;
+            ">
+                <div class="card-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px;
+                ">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        💸 ${item.title}
+                    </div>
+                    <button 
+                        onclick="togglePaymentsDetails('${item.title}', ${index}, '${item.link}')"
+                        id="btn-pay-${index}"
+                        style="
+                            background: linear-gradient(135deg, #F59E0B, #D97706);
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 700;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
+                            white-space: nowrap;
+                        "
+                        onmouseover="this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.transform='translateY(0)'"
+                    >
+                        Show Details
+                    </button>
+                </div>
+                
+                <div 
+                    id="details-container-pay-${index}" 
+                    style="
+                        max-height: 0px;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin-top: 0px;
+                        padding-top: 0px;
+                    "
+                >
+                    <div id="loader-pay-${index}" style="display: none; padding: 25px 0; text-align: center;">
+                        <div class="spinner" style="width: 32px; height: 32px; border-width: 3px; margin: auto;"></div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: var(--muted); font-weight: 600;">Fetching details from official site...</div>
+                    </div>
+                    <div id="content-pay-${index}" style="display: none;"></div>
+                </div>
+            </div>
+        `).join("");
+
+                summaryContent.innerHTML = `
+            <div style="margin-bottom: 20px; font-size: 1.6rem; font-weight: 800; color: #D97706; display: flex; align-items: center; gap: 8px;">
+                ✨ HDFC ${categoryName} Overview
+            </div>
+            <div style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 25px; text-align: justify; background: #FFFBEB; border-left: 4px solid #F59E0B; padding: 15px 20px; border-radius: 0 12px 12px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                ${categoryDescription}
+            </div>
+            <div style="margin-bottom: 15px; font-weight: 700; font-size: 1.15rem; color: #1e293b; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                💸 Available ${categoryName} Systems:
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px;">
+                ${paymentsSummary}
+            </div>
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);">
+                <a href="${officialUrl}" target="_blank" class="scrape-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    text-decoration: none;
+                    padding: 14px 28px;
+                    border-radius: 16px;
+                    background: linear-gradient(135deg, #F59E0B, #D97706);
+                    color: white;
+                    font-weight: 700;
+                    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.25);
+                    transition: all 0.3s;
+                    margin: auto;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    Visit Official HDFC Bank ${categoryName} Page
+                </a>
+            </div>
+        `;
+
+                const uniqueLinks = [officialUrl];
+                const linksHTML = uniqueLinks.map(link => `
+                    <div class="result-item">
+                        <a class="result-link" href="${link}" target="_blank">
+                            🔗 Official Category Portal: ${link}
+                        </a>
+                    </div>
+                `).join("");
+
+                dataList.innerHTML = linksHTML;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            // ---------- NORMAL VIEW ----------
+            summaryContent.textContent = currentSummary || "No summary available.";
+
+            if (!currentData.length) {
+                dataList.innerHTML = `<div class="result-item">❌ No data found</div>`;
+                resultsSection.style.display = "block";
+                return;
+            }
+
+            const html = currentData.map(item => `
+        <div class="result-item">
+
+            <div class="result-title">
+                ${item.title}
+            </div>
+
+            ${item.link
+                    ? `
+                <a class="result-link"
+                   href="${item.link}"
+                   target="_blank">
+                   🔗 ${item.link}
+                </a>
+                `
+                    : ""
+                }
+
+            <div class="result-preview">
+                ${item.content || ""}
+            </div>
+
+        </div>
+    `).join("");
 
             dataList.innerHTML = html;
+
             resultsSection.style.display = "block";
         }
 
@@ -505,6 +2169,1372 @@
             } catch (err) {
                 alert("Download error: " + err.message);
             }
+        }
+
+        async function loadCategory(url) {
+            try {
+                const res = await fetch("/category-cards", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await res.json();
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results;
+                currentType = "cards";
+
+                displayResults("cards");
+
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+
+        async function getCardDetails(url) {
+            try {
+                const res = await fetch("/card-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await res.json();
+
+                if (data.error) throw new Error(data.error);
+
+                alert(
+                    "📄 Description:\n\n" + data.description +
+                    "\n\n🔗 Visit Page:\n" + data.link
+                );
+
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+
+        // ---------- LOAD CATEGORY CARDS ----------
+        async function loadCategoryCards(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-cards", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Cards";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("cards");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- LOAD CATEGORY INSURANCE ----------
+        async function loadCategoryInsurance(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-insurance", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Insurance";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("insurance");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- LOAD CATEGORY INVESTMENT ----------
+        async function loadCategoryInvestment(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-investment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Investments";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("investment");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- LOAD CATEGORY CALCULATOR ----------
+        async function loadCategoryCalculator(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-calculator", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Calculators";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("calculator");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- LOAD CATEGORY DIGITAL BANKING ----------
+        async function loadCategoryDigitalBanking(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-digital-banking", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Digital Banking";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("digital_banking");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- LOAD CATEGORY PAYMENTS ----------
+        async function loadCategoryPayments(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-payments", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Payments";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("payments");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- LOAD CATEGORY ACCOUNTS ----------
+        async function loadCategoryAccounts(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-accounts", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Accounts";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("accounts");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- TOGGLE INSURANCE DETAILS INLINE ----------
+        async function toggleInsuranceDetails(insuranceName, index, url) {
+            const container = document.getElementById(`details-container-ins-${index}`);
+            const contentDiv = document.getElementById(`content-ins-${index}`);
+            const loader = document.getElementById(`loader-ins-${index}`);
+            const btn = document.getElementById(`btn-ins-${index}`);
+            
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #6366F1, #4F46E5)";
+                return;
+            }
+            
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+            
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/insurance-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ insurance_name: insuranceName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#6366F1;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#EEF2FF;color:#4F46E5;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#f8fafc;border-radius:12px;padding:12px 15px;border-left:4px solid #6366F1;border-top:1px solid #e2e8f0;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Coverage & Premium Details:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#6366F1;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(99,102,241,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                APPLY ONLINE
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- TOGGLE INVESTMENT DETAILS INLINE ----------
+        async function toggleInvestmentDetails(investmentName, index, url) {
+            const container = document.getElementById(`details-container-inv-${index}`);
+            const contentDiv = document.getElementById(`content-inv-${index}`);
+            const loader = document.getElementById(`loader-inv-${index}`);
+            const btn = document.getElementById(`btn-inv-${index}`);
+            
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #10B981, #059669)";
+                return;
+            }
+            
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+            
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/investment-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ investment_name: investmentName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#10B981;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#ECFDF5;color:#059669;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#f8fafc;border-radius:12px;padding:12px 15px;border-left:4px solid #10B981;border-top:1px solid #e2e8f0;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Returns & Wealth Highlights:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#10B981;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(16,185,129,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                INVEST NOW
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- TOGGLE CALCULATOR DETAILS INLINE ----------
+        async function toggleCalculatorDetails(calculatorName, index, url) {
+            const container = document.getElementById(`details-container-calc-${index}`);
+            const contentDiv = document.getElementById(`content-calc-${index}`);
+            const loader = document.getElementById(`loader-calc-${index}`);
+            const btn = document.getElementById(`btn-calc-${index}`);
+            
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #14B8A6, #0D9488)";
+                return;
+            }
+            
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+            
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/calculator-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ calculator_name: calculatorName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#14B8A6;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#F0FDFA;color:#0D9488;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#f8fafc;border-radius:12px;padding:12px 15px;border-left:4px solid #14B8A6;border-top:1px solid #e2e8f0;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Calculator Benefits:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#14B8A6;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(20,184,166,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                USE CALCULATOR
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- TOGGLE DIGITAL BANKING DETAILS INLINE ----------
+        async function toggleDigitalBankingDetails(bankingName, index, url) {
+            const container = document.getElementById(`details-container-bank-${index}`);
+            const contentDiv = document.getElementById(`content-bank-${index}`);
+            const loader = document.getElementById(`loader-bank-${index}`);
+            const btn = document.getElementById(`btn-bank-${index}`);
+            
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #D946EF, #A21CAF)";
+                return;
+            }
+            
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+            
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/digital-banking-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ banking_name: bankingName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#D946EF;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#FDF4FF;color:#A21CAF;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#f8fafc;border-radius:12px;padding:12px 15px;border-left:4px solid #D946EF;border-top:1px solid #e2e8f0;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Digital banking highlights:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#D946EF;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(217,70,239,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                ACCESS NOW
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- TOGGLE PAYMENTS DETAILS INLINE ----------
+        async function togglePaymentsDetails(paymentName, index, url) {
+            const container = document.getElementById(`details-container-pay-${index}`);
+            const contentDiv = document.getElementById(`content-pay-${index}`);
+            const loader = document.getElementById(`loader-pay-${index}`);
+            const btn = document.getElementById(`btn-pay-${index}`);
+            
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #F59E0B, #D97706)";
+                return;
+            }
+            
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+            
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/payments-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ payment_name: paymentName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#F59E0B;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#FFFBEB;color:#D97706;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#f8fafc;border-radius:12px;padding:12px 15px;border-left:4px solid #F59E0B;border-top:1px solid #e2e8f0;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Payments & Cashbacks:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#F59E0B;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(245,158,11,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                TRANSACT NOW
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- TOGGLE ACCOUNT DETAILS INLINE ----------
+        async function toggleAccountDetails(accountName, index, url) {
+            const container = document.getElementById(`details-container-acc-${index}`);
+            const contentDiv = document.getElementById(`content-acc-${index}`);
+            const loader = document.getElementById(`loader-acc-${index}`);
+            const btn = document.getElementById(`btn-acc-${index}`);
+            
+            // If already expanded, collapse it
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #6366F1, #4F46E5)";
+                return;
+            }
+            
+            // Expand container to show loader/content
+            container.style.maxHeight = "350px"; // Temporary height for loader
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444"; // Red for hide
+            
+            // If already loaded, just open it
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            // Show loader
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/account-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ account_name: accountName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                // Render structured details elegantly!
+                const featuresHTML = data.features.map(f => `
+                    <li style="
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        margin-bottom: 8px;
+                        font-size: 0.95rem;
+                        color: #334155;
+                        line-height: 1.5;
+                        text-align: left;
+                    ">
+                        <span style="color: #10B981; font-weight: bold; font-size: 1.1rem; line-height: 1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="
+                        background: #EEF2FF;
+                        color: #4F46E5;
+                        padding: 5px 12px;
+                        border-radius: 9999px;
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        letter-spacing: 0.05em;
+                        text-transform: uppercase;
+                    ">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display: flex; flex-direction: column; gap: 15px; text-align: left; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                        <!-- Features Section -->
+                        <div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                ⚙️ Features:
+                            </div>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                ${featuresHTML}
+                            </ul>
+                        </div>
+                        
+                        <!-- Interest & Cashbacks Section -->
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 12px 15px; border-left: 4px solid #10B981; border-top: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                            <div style="font-weight: 700; color: #0f172a; font-size: 0.9rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                💰 Interest, Cashbacks & Rewards:
+                            </div>
+                            <div style="font-size: 0.88rem; color: #475569; line-height: 1.5;">
+                                ${data.cashback_or_rewards}
+                            </div>
+                        </div>
+                        
+                        <!-- Benefits Tag Section -->
+                        <div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                🎁 Benefits:
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${benefitsHTML}
+                            </div>
+                        </div>
+                        
+                        <!-- Action Section -->
+                        <div style="display: flex; gap: 10px; margin-top: 5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="
+                                background: #10B981;
+                                color: white;
+                                text-decoration: none;
+                                padding: 8px 16px;
+                                border-radius: 10px;
+                                font-weight: 700;
+                                font-size: 0.8rem;
+                                transition: 0.2s;
+                                box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+                            " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                APPLY ONLINE
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="
+                                background: #f1f5f9;
+                                color: #334155;
+                                text-decoration: none;
+                                padding: 8px 16px;
+                                border-radius: 10px;
+                                font-weight: 700;
+                                font-size: 0.8rem;
+                                border: 1px solid #cbd5e1;
+                                transition: 0.2s;
+                            " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                // Adjust container height to match content exactly
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600; text-align: left; padding-top: 15px; border-top: 1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- TOGGLE CARD DETAILS INLINE ----------
+        async function toggleCardDetails(cardName, index, url) {
+            const container = document.getElementById(`details-container-${index}`);
+            const contentDiv = document.getElementById(`content-${index}`);
+            const loader = document.getElementById(`loader-${index}`);
+            const btn = document.getElementById(`btn-${index}`);
+            
+            // If already expanded, collapse it
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #6366F1, #4F46E5)";
+                return;
+            }
+            
+            // Expand container to show loader/content
+            container.style.maxHeight = "350px"; // Temporary height for loader
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444"; // Red for hide
+            
+            // If already loaded, just open it
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+            
+            // Show loader
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+            
+            try {
+                const response = await fetch("/card-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ card_name: cardName, url: url })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                
+                if (data.error) throw new Error(data.error);
+                
+                // Render structured details elegantly!
+                const featuresHTML = data.features.map(f => `
+                    <li style="
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        margin-bottom: 8px;
+                        font-size: 0.95rem;
+                        color: #334155;
+                        line-height: 1.5;
+                        text-align: left;
+                    ">
+                        <span style="color: #10B981; font-weight: bold; font-size: 1.1rem; line-height: 1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+                
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="
+                        background: #EEF2FF;
+                        color: #4F46E5;
+                        padding: 5px 12px;
+                        border-radius: 9999px;
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        letter-spacing: 0.05em;
+                        text-transform: uppercase;
+                    ">${b}</span>
+                `).join("");
+                
+                contentDiv.innerHTML = `
+                    <div style="display: flex; flex-direction: column; gap: 15px; text-align: left; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                        <!-- Features Section -->
+                        <div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 0.95rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                ⚙️ Features:
+                            </div>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                ${featuresHTML}
+                            </ul>
+                        </div>
+                        
+                        <!-- Cashbacks Section -->
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 12px 15px; border-left: 4px solid #10B981; border-top: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                            <div style="font-weight: 700; color: #0f172a; font-size: 0.9rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                💰 Cashbacks & Rewards:
+                            </div>
+                            <div style="font-size: 0.88rem; color: #475569; line-height: 1.5;">
+                                ${data.cashback_or_rewards}
+                            </div>
+                        </div>
+                        
+                        <!-- Benefits Tag Section -->
+                        <div>
+                            <div style="font-weight: 700; color: #0f172a; font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                🎁 Benefits:
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${benefitsHTML}
+                            </div>
+                        </div>
+                        
+                        <!-- Action Section -->
+                        <div style="display: flex; gap: 10px; margin-top: 5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="
+                                background: #10B981;
+                                color: white;
+                                text-decoration: none;
+                                padding: 8px 16px;
+                                border-radius: 10px;
+                                font-weight: 700;
+                                font-size: 0.8rem;
+                                transition: 0.2s;
+                                box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+                            " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                APPLY ONLINE
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="
+                                background: #f1f5f9;
+                                color: #334155;
+                                text-decoration: none;
+                                padding: 8px 16px;
+                                border-radius: 10px;
+                                font-weight: 700;
+                                font-size: 0.8rem;
+                                border: 1px solid #cbd5e1;
+                                transition: 0.2s;
+                            " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                KNOW MORE
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                // Adjust container height to match content exactly
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+                
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600; text-align: left; padding-top: 15px; border-top: 1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+
+        // ---------- LOAD CATEGORY DEPOSITS ----------
+        async function loadCategoryDeposits(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-deposits", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Deposits";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("deposits");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- TOGGLE DEPOSIT DETAILS INLINE ----------
+        async function toggleDepositDetails(depositName, index, url) {
+            const container = document.getElementById(`details-container-dep-${index}`);
+            const contentDiv = document.getElementById(`content-dep-${index}`);
+            const loader = document.getElementById(`loader-dep-${index}`);
+            const btn = document.getElementById(`btn-dep-${index}`);
+
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #10B981, #059669)";
+                return;
+            }
+
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+
+            try {
+                const response = await fetch("/deposit-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ deposit_name: depositName, url: url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+
+                if (data.error) throw new Error(data.error);
+
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#10B981;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#ECFDF5;color:#059669;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#f0fdf4;border-radius:12px;padding:12px 15px;border-left:4px solid #10B981;border-top:1px solid #d1fae5;border-right:1px solid #d1fae5;border-bottom:1px solid #d1fae5;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Returns & Interest:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#10B981;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(16,185,129,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                OPEN ACCOUNT
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                OFFICIAL PAGE
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        // ---------- LOAD CATEGORY LOANS ----------
+        async function loadCategoryLoans(url) {
+            const loader = document.getElementById("loader");
+            const errorBox = document.getElementById("error-message");
+            const resultsSection = document.getElementById("results-section");
+
+            errorBox.style.display = "none";
+            resultsSection.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch("/category-loans", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                if (data.error) throw new Error(data.error);
+
+                currentData = data.results || [];
+                categoryName = data.category_name || "Loans";
+                categoryDescription = data.description || "";
+                officialUrl = data.official_url || "";
+
+                displayResults("loans");
+
+            } catch (err) {
+                loader.style.display = "none";
+                errorBox.textContent = err.message;
+                errorBox.style.display = "block";
+            }
+        }
+
+        // ---------- TOGGLE LOAN DETAILS INLINE ----------
+        async function toggleLoanDetails(loanName, index, url) {
+            const container = document.getElementById(`details-container-loan-${index}`);
+            const contentDiv = document.getElementById(`content-loan-${index}`);
+            const loader = document.getElementById(`loader-loan-${index}`);
+            const btn = document.getElementById(`btn-loan-${index}`);
+
+            if (container.style.maxHeight !== "0px" && container.style.maxHeight !== "") {
+                container.style.maxHeight = "0px";
+                container.style.marginTop = "0px";
+                container.style.paddingTop = "0px";
+                btn.textContent = "Show Details";
+                btn.style.background = "linear-gradient(135deg, #F97316, #EA580C)";
+                return;
+            }
+
+            container.style.maxHeight = "350px";
+            container.style.marginTop = "15px";
+            container.style.paddingTop = "15px";
+            btn.textContent = "Hide Details";
+            btn.style.background = "#ef4444";
+
+            if (contentDiv.innerHTML.trim() !== "") {
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 80 + "px";
+                }, 100);
+                return;
+            }
+
+            loader.style.display = "block";
+            contentDiv.style.display = "none";
+
+            try {
+                const response = await fetch("/loan-details", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ loan_name: loanName, url: url })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+
+                if (data.error) throw new Error(data.error);
+
+                const featuresHTML = data.features.map(f => `
+                    <li style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.95rem;color:#334155;line-height:1.5;text-align:left;">
+                        <span style="color:#F97316;font-weight:bold;font-size:1.1rem;line-height:1;">✓</span>
+                        <span>${f}</span>
+                    </li>
+                `).join("");
+
+                const benefitsHTML = data.benefits.map(b => `
+                    <span style="background:#FFF7ED;color:#EA580C;padding:5px 12px;border-radius:9999px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${b}</span>
+                `).join("");
+
+                contentDiv.innerHTML = `
+                    <div style="display:flex;flex-direction:column;gap:15px;text-align:left;border-top:1px solid #e2e8f0;padding-top:15px;">
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚙️ Features:</div>
+                            <ul style="list-style:none;padding-left:5px;margin:0;">${featuresHTML}</ul>
+                        </div>
+                        <div style="background:#fff7ed;border-radius:12px;padding:12px 15px;border-left:4px solid #F97316;border-top:1px solid #fed7aa;border-right:1px solid #fed7aa;border-bottom:1px solid #fed7aa;">
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;">💰 Interest Rate & Benefits:</div>
+                            <div style="font-size:0.88rem;color:#475569;line-height:1.5;">${data.cashback_or_rewards}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;color:#0f172a;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎁 Benefits:</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px;">${benefitsHTML}</div>
+                        </div>
+                        <div style="display:flex;gap:10px;margin-top:5px;">
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#F97316;color:white;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;transition:0.2s;box-shadow:0 4px 10px rgba(249,115,22,0.2);"
+                               onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                                APPLY NOW
+                            </a>
+                            <a href="${data.apply_url || url}" target="_blank" style="background:#f1f5f9;color:#334155;text-decoration:none;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;border:1px solid #cbd5e1;transition:0.2s;"
+                               onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                OFFICIAL PAGE
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    container.style.maxHeight = contentDiv.scrollHeight + 100 + "px";
+                }, 100);
+
+            } catch (err) {
+                loader.style.display = "none";
+                contentDiv.style.display = "block";
+                contentDiv.innerHTML = `<div style="color:#ef4444;font-weight:600;text-align:left;padding-top:15px;border-top:1px solid #e2e8f0;">Failed to load details: ${err.message}</div>`;
+            }
+        }
+
+        async function goBackToCategories() {
+
+            currentData = [
+                {
+                    title: "Credit Cards",
+                    link: "https://www.hdfcbank.com/personal/pay/cards/credit-cards"
+                },
+                {
+                    title: "Debit Cards",
+                    link: "https://www.hdfcbank.com/personal/pay/cards/debit-cards"
+                },
+                {
+                    title: "Prepaid Cards",
+                    link: "https://www.hdfcbank.com/personal/pay/cards/prepaid-cards"
+                },
+                {
+                    title: "Forex Cards",
+                    link: "https://www.hdfcbank.com/personal/pay/cards/forex-cards"
+                }
+            ];
+
+
+            currentSummary = "Select HDFC Card Category";
+            currentType = "category";
+            displayResults("category");
         }
     </script>
 </body>
